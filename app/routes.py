@@ -12,27 +12,11 @@ from functools import wraps
 
 from app import app
 
-## from app.forms import LoginForm, RegistrationForm
-
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.db import connect_db
 
-from flask_login import login_required, current_user, login_user, logout_user, UserMixin, LoginManager
-
-
-#login_manager = LoginManager()
-#login_manager.init_app(app)
-#login_manager.login_view = "login"
-#login_manager.login_message_category = 'danger'
-
-
-#db = connect_db()
-#cur = db.cursor()
-#user_id = cur.execute('')
-
-
-
+from flask_login import login_required, current_user
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -88,15 +72,10 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user[1]
-            #session['logged_in'] = True
-            #login_user(user[1], remember=True)
-            #flash('error')
             return redirect(url_for('index'))
     return render_template('login.html')
 
-#@login_manager.user_loader
-#def load_user(session):
- #  return session['user_id']
+
 @app.before_request
 def before_request():
     g.user = current_user
