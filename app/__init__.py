@@ -8,6 +8,7 @@ from . import db
 db.init_app(app)
 
 
+
 from app import routes
 
 

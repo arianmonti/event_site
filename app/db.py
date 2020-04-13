@@ -1,14 +1,14 @@
 import click
-import mysql.connector as mysql
+import MySQLdb as mysql
 from flask import g
 from flask.cli import with_appcontext
 import app.config as config
 
 def connect_db():
     db = mysql.connect(user=config.MYSQL_USERNAME,
-                       password=config.MYSQL_PASSWORD,
+                       passwd=config.MYSQL_PASSWORD,
                        host=config.MYSQL_HOST,
-                       database=config.MYSQL_DATABASE
+                       db=config.MYSQL_DATABASE
                         )
     return db
 
@@ -31,7 +31,7 @@ def init_db():
             email VARCHAR(128),
             password VARCHAR(128)
             );
-    """, multi=True)
+    """)
     ##print('user added')
     ##FKRFJFJSRIOEJRER
        
@@ -48,7 +48,7 @@ def init_db():
             user_id INT,
             FOREIGN KEY (user_id) REFERENCES user(id)
             );
-    """, multi=True)
+    """)
     ##print('event added')
 
 
