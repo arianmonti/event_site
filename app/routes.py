@@ -18,28 +18,35 @@ from app.db import connect_db
 
 from flask_login import login_required, current_user
 
+from markupsafe import escape
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        repet_password = request.form['repet_password']
+        email = request.form['email']
         db = connect_db()
         cursor = db.cursor()
         error = None
         qo = """
-            INSERT INTO user (username, password)
-            VALUES (%s, %s)
+            INSERT INTO user (username, email, password)
+            VALUES (%s, %s, %s)
         """
-        vo = (username, generate_password_hash(password))
-        ql = 'SELECT id FROM user WHERE username = (%s)'
-        vl = (username)
+        vo = (username, email, generate_password_hash(password))
+        ql = 'SELECT username FROM user WHERE username = (%s)'
+        vl = (username,)
+
+        cursor.execute(ql, vl)
         if not username:
             error = 'Username is required'
         elif not password:
             error = 'Password is required'
-        elif cursor.execute(ql, vl) is not None:
-            error = "You can't user %s username :)" %(username)
+        elif cursor.fetchone() is not None:
+           error = "You can't user user %s username :)" %(username)
+        elif password != repet_password:
+            error = "passwords don't math."
         
         if error is None:
             cursor.execute(qo, vo) 
@@ -72,9 +79,11 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user[1]
-            return redirect(url_for('index'))
-    return render_template('login.html')
+            session['username'] = user[2]
+            username = session['username']
+            return redirect('/')
 
+    return render_template('login.html')
 
 @app.before_request
 def before_request():
@@ -88,11 +97,11 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route('/index')
+@app.route('/index', methods=['GET, POST'])
 @app.route('/')
 @login_required
 def index():
-    try:
+    try:                                                                                                                                                
         flash(session['user_id'])
     except:
         return redirect('/login')
@@ -103,6 +112,4 @@ def index():
 def logout():
     session.clear()
     return redirect(url_for('index'))
-
-
 
