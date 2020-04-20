@@ -16,6 +16,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.db import connect_db
 
+from hashlib import md5
+
 from flask_login import login_required, current_user
 
 from markupsafe import escape
@@ -51,7 +53,7 @@ def register():
         if error is None:
             cursor.execute(qo, vo) 
             db.commit()
-            return redirect('/')
+            return redirect('/login')
 
         flash(error)
         
@@ -78,10 +80,11 @@ def login():
             flash(error)
         if error is None:
             session.clear()
-            session['user_id'] = user[1]
-            session['username'] = user[2]
+            session['user_id'] = user[0]
+            session['username'] = user[1]
+            session['email'] = user[2]
             username = session['username']
-            return redirect('/')
+            return redirect('/user/%s'%(username))
 
     return render_template('login.html')
 
@@ -99,12 +102,12 @@ def login_required(f):
 
 @app.route('/index', methods=['GET, POST'])
 @app.route('/')
-@login_required
 def index():
-    try:                                                                                                                                                
-        flash(session['user_id'])
+    try:
+        username = session['username']
+        return(redirect('/user/%s' %(username)))
     except:
-        return redirect('/login')
+        pass
     return render_template('index.html')
 
 
@@ -113,3 +116,12 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    try:
+        user =  session['username']
+
+    except:
+        return redirect('/login')
+    return render_template('user.html', user=user)

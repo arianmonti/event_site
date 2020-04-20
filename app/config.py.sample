@@ -1,0 +1,13 @@
+import os
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'
+
+
+
+MYSQL_USERNAME = 'username'
+MYSQL_PASSWORD = 'password'
+MYSQL_HOST = 'host'
+MYSQL_DATABASE = 'database'
+
+
