@@ -1,10 +1,9 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>{% block title %}{% endblock %} Freevent</title>
 <nav>
     <h1>Freevent</h1>
     <ul>
-        {% if session['user_id'] %}
+        {% if session['username'] %}
             <!--<li><span>{{ session['username'] }}</span>-->
             <li><a href="{{ url_for('logout') }}">Log Out</a>
         {% else %}

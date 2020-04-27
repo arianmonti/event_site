@@ -1,11 +1,29 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block header %}
+<h1>{% block title %}Posts{% endblock %}</h1>
+{% if session['username'] %}
+<a class="action" href="/user/{{ session['username']}}/new_event " >New</a>
+{% endif %}
 
+{% endblock %}
 {% block content %}
-    <table>
-        <tr valign="top">    
-            <td><h1>User: {{ user }}</h1></td>
-        </tr>
-    </table>
-    <hr>
+{% for post in posts %}
+<article class="post">
+<header>
+<div>
+	
 
+<div class="about">title: {{ post[0] }}<br> description: {{ post[1] }} <br> place: {{ post[2] }}<br> posted: {{ post[3] }}<br> when: {{ post[4] }}<br> price: {{ post[5] }}</div>
+</div>
+<!--
+{% if session['user_id'] == post['user_id'] %}
+<a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+{% endif %}
+-->
+</header>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endfor %}
 {% endblock %}

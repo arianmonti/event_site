@@ -2,13 +2,14 @@ import click
 import MySQLdb as mysql
 from flask import g
 from flask.cli import with_appcontext
-import app.config as config
+from app import config
 
 def connect_db():
     db = mysql.connect(user=config.MYSQL_USERNAME,
                        passwd=config.MYSQL_PASSWORD,
                        host=config.MYSQL_HOST,
-                       db=config.MYSQL_DATABASE
+                       db=config.MYSQL_DATABASE,
+                       charset='utf8'
                         )
     return db
 
@@ -22,21 +23,17 @@ def close_db(e=None):
 def init_db():
     db = connect_db()
     cursor = db.cursor()
-    
     cursor.execute("""
         DROP TABLE IF EXISTS user;
         CREATE TABLE user (
-            id INT PRIMARY KEY AUTO_INCREMENT,
-            username VARCHAR(128),
+            id INT,
+            username VARCHAR(128) PRIMARY KEY,
+            first_name VARCHAR(64),
+            sur_name VARCHAR(64),
             email VARCHAR(128),
             password VARCHAR(128)
-            );
-    """)
-    ##print('user added')
-    ##FKRFJFJSRIOEJRER
-       
-    cursor.execute("""
-        DROP TABLE IF EXISTS event;
+        );
+        DROP TABLE IF EXISTS event; 
         CREATE TABLE event (
             id INT,
             title VARCHAR(500),
@@ -45,10 +42,10 @@ def init_db():
             timestamp DATE DEFAULT CURRENT_DATE,
             time DATE,
             price INT,
-            user_id INT,
-            FOREIGN KEY (user_id) REFERENCES user(id)
-            );
-    """)
+            author_username VARCHAR(128),
+            FOREIGN KEY (author_username) REFERENCES user(username)
+        );
+        """)
     ##print('event added')
 
 
