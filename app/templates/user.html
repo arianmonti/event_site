@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+
+</style>
 {% block header %}
 <h1>{% block title %}Posts{% endblock %}</h1>
 {% if session['username'] %}
@@ -7,13 +9,16 @@
 
 {% endblock %}
 {% block content %}
+<div class="image-cropper">
+	<img src="{{ user_avatar }}" width="100" height="100">
+</div>
 {% for post in posts %}
 <article class="post">
 <header>
 <div>
 	
-
-<div class="about">title: {{ post[0] }}<br> description: {{ post[1] }} <br> place: {{ post[2] }}<br> posted: {{ post[3] }}<br> when: {{ post[4] }}<br> price: {{ post[5] }}</div>
+	<p>by {{post[6]}} posted on {{post[3]}}</p>
+<div class="about">title: {{ post[0] }}<br> description: {{ post[1] }} <br> place: {{ post[2] }}<br> when: {{ post[4] }}<br> price: {{ post[5] }}</div>
 </div>
 <!--
 {% if session['user_id'] == post['user_id'] %}

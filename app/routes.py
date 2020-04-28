@@ -22,11 +22,13 @@ from flask_login import login_required, current_user
 
 from markupsafe import escape
 
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        #first_name = request.form['first_name']
-        #last_name = request.form['last_name']
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        sex = request.form['sex']
         username = request.form['username']
         password = request.form['password']
         repeat_password = request.form['repeat_password']
@@ -48,7 +50,7 @@ def register():
         elif not password:
             error = 'Password is required'
         elif cursor.fetchone() is not None:
-           error = "You can't user user %s username :)" %(username)
+           error = "You can't use user %s username :)" %(username)
         elif password != repeat_password:
             error = "passwords don't math."
         
@@ -120,6 +122,13 @@ def logout():
     session.clear()
     return redirect(url_for('index'))
 
+def avatar(size):
+        username = session['username']
+        digest = md5(username.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
+
+    
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -128,10 +137,12 @@ def user(username):
     cursor = db.cursor()
 
     cursor.execute("""
-    SELECT  title, description, place, timestamp, time, price, author_username FROM event""")
+    SELECT  title, description, place, timestamp, time, price, username FROM event""")
 
     posts = cursor.fetchall()
-    return render_template('user.html', posts=posts ,user=user)
+    user_avatar = avatar(128)
+    return render_template('user.html', posts=posts ,user=user, user_avatar=user_avatar)
+
 
 @app.route('/user/<username>/new_event', methods=['GET', 'POST'])
 @login_required
@@ -143,6 +154,7 @@ def new(username):
         place = request.form['place']
         time = request.form['time']
         price = request.form['price']
+       
         #flash(session['username']) 
         error = None 
         data = [title, place, time, price]
@@ -152,7 +164,7 @@ def new(username):
             if data == None:
                 error = 'Fill out all!!'
         if error is None:
-            qo = """INSERT INTO event (title, description, place, time, price, author_username) VALUES (%s, %s, %s, %s, %s, %s)"""
+            qo = """INSERT INTO event (title, description, place, time, price,  username) VALUES (%s, %s, %s, %s, %s, %s)"""
             vo = (title, description, place, time, price, session['username'])
             cur.execute(qo, vo)
             db.commit()
@@ -160,4 +172,3 @@ def new(username):
             #flash(session['username'])
         flash(error)
     return render_template('new.html')
-
