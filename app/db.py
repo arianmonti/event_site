@@ -34,7 +34,9 @@ def init_db():
             sur_name        VARCHAR(64)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
             email           VARCHAR(128),
             password        VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            about           VARCHAR(400));
+            about           VARCHAR(400),
+            profile         JSON
+            );
         """)
 
     cursor.execute("""DROP TABLE IF EXISTS event;""")
@@ -47,9 +49,9 @@ def init_db():
             timestamp     DATE           DEFAULT CURRENT_DATE,
             time DATE,
             price INT,
-            username      VARCHAR(128),
-            FOREIGN KEY (username) REFERENCES user(username));
-        """)
+            username      VARCHAR(128)
+            )
+        ;""")
 
 # TODO Add type
 # TODO Add subject

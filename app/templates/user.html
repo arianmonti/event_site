@@ -3,43 +3,31 @@
 {% block header %}
 <h1>{% block title %}Posts{% endblock %}</h1>
 {% if session['username'] %}
-<a class="action" href="/user/{{ session['username']}}/new_event " >New</a>
+<small><a class="action" href="/user/{{ session['username']}}/new_event">New</a></small>
 {% endif %}
 
 {% endblock %}
 {% block content %}
-	<img src="{{ user_avatar }}" width="100" height="100">
+    <img src="{{ get_redis(session['username']).decode('utf-8') }}"height="100" width="100">
+    <a href="/user/{{ session['username'] }}/new_profile">EDIT PROFILE IMAGE<a>
 	<hr>
-{% for post in posts %}
-<table>
-        <tr valign="top">
-            <td><img src="{{ profiles[post[6]] }}"></td>
-            <td>by {{post[6]}} posted on {{post[3]}}</td>
-        </tr>
-</table>
-            <hr  size="1">
-            <td>title: {{ post[0] }}</td><br>
-            <td>description: {{ post[1] }} <br></td>
-            <td>place: {{ post[2] }}<br></td>
-            <td>when: {{ post[4] }}<br></td>
-            <td>price: {{ post[5] }}</td>
-<!--<article class="post">
-<header>
-<div>
-	<img src="{{ profiles[post[6]] }}" class="image-cropper"> 
-	<p>by {{post[6]}} posted on {{post[3]}}</p>
-<div class="about">title: {{ post[0] }}<br> description: {{ post[1] }} <br> place: {{ post[2] }}<br> when: {{ post[4] }}<br> price: {{ post[5] }}</div>
-</div>
--->
-<!--
-{% if session['user_id'] == post['user_id'] %}
-<a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-{% endif %}
--->
-</header>
-</article>
-{% if not loop.last %}
-<hr>
-{% endif %}
-{% endfor %}
+    {% for post in posts %}
+        <table>
+            <tr valigon="top">
+                <td><img src="{{ get_redis(post[6]).decode('utf-8') }}" height="100" width="100"></td>
+                <td>by {{ post[6] }} posted on {{ post[3] }}</td>
+            </tr>
+        </table>
+        <hr  size="1">
+        <td>title: {{ post[0] }}</td><br>
+        <td>description: {{ post[1] }} <br></td>
+        <td>place: {{ post[2] }}<br></td>
+        <td>when: {{ post[4] }}<br></td>
+        <td>price: {{ post[5] }}</td>
+    </header>
+    </article>
+    {% if not loop.last %}
+    <hr>
+    {% endif %}
+    {% endfor %}
 {% endblock %}

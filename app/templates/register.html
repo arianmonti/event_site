@@ -1,24 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Register{% endblock %}
 
-{% block header %}
-<center>    
+{% block content %}
 <form method="post">
-        <label for="first_name">first_name</label>
-        <input name="first_name" id="first_name" required>
-        <label for="last_name">last_name</label>
-        <input name="last_name" id="last_name" required>
-        <label for="sex">sex</label>
-        <input name="sex" id="sex" required>
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <label for="repeat_password">repeat_password</label>
-        <input type="password" name="repeat_password" id="repeat_password" required>
+        <label for="first_name">first_name</label><br>
+        <input name="first_name" id="first_name" required><br>
+        <label for="last_name">last_name</label><br>
+        <input name="last_name" id="last_name" required><br>
+        <label for="sex">sex</label><br>
+        <input name="sex" id="sex" required><br>
+        <label for="username">Username</label><br>
+        <input name="username" id="username" required><br>
+        <label for="email">Email</label><br>
+        <input type="email" name="email" id="email" required><br>
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" required><br>
+        <label for="repeat_password">repeat_password</label><br>
+        <input type="password" name="repeat_password" id="repeat_password" required><br>
         <input type="submit" value="Register">
 </form>
-</center>
 {% endblock %}

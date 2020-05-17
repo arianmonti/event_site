@@ -45,9 +45,11 @@ img {
     -->
 </nav>
 <section class="content">
+        <h1>
     <header>
         {% block header %}{% endblock %}
     </header>
+        </h1>
     {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
     {% endfor %}

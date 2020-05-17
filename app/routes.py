@@ -9,14 +9,20 @@ from flask import (
     session,
     url_for
 )
+from app import config
 from flask_login import current_user
 from functools import wraps
 from hashlib import md5
-# from markupsafe import escape
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import os
+import redis
+r = redis.Redis(host='localhost', port=6379, db=0)
 
-profiles = {}
 
+def get_redis(username):
+    result = r.get(username)
+    return result
 
 def avatar(username, size):
     digest = md5(username.lower().encode('utf-8')).hexdigest()
@@ -41,7 +47,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         try:
-            username = session['username']
+            session['username']
         except BaseException:
             return redirect('/login')
         return f(*args, **kwargs)
@@ -81,6 +87,7 @@ def register():
             error = "passwords don't math."
         if error is None:
             cursor.execute(qo, vo)
+            r.set('%s' %username, '%s' %avatar(username, 80))
             db.commit()
             return redirect('/login')
 
@@ -107,9 +114,7 @@ def login():
             flash(error)
         if error is None:
             session.clear()
-            session['user_id'] = user[0]
             session['username'] = user[1]
-            session['email'] = user[4]
             username = session['username']
             return redirect('/user/%s' % (username))
 
@@ -140,6 +145,10 @@ def current_avatar(size):
         digest, size)
 
 
+def check_empty_profile(profile_uli):
+    result = os.path.exists('%s' %(profile_uli))
+    return result
+
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -153,16 +162,16 @@ def user(username):
                     time, price, username
                     FROM event
             """)
-    for i in range(1, len(cp())):
-        profiles[cp()[i][0]] = avatar(cp()[i][0], 80)
     posts = cursor.fetchall()
-    user_avatar = current_avatar(128)
+    user_avatar = avatar(username, 128)  # current_avatar(128)
     return render_template(
         'user.html',
-        posts=posts,
         user=user,
+        posts=posts,
+        avatar=avatar,
+        get_redis=get_redis,
         user_avatar=user_avatar,
-        profiles=profiles)
+        check_empty_profile=check_empty_profile)
 
 
 @app.route('/user/<username>/new_event', methods=['GET', 'POST'])
@@ -188,9 +197,48 @@ def new(username):
                     (title, description, place, time, price, username)
                     VALUES (%s, %s, %s, %s, %s, %s)
                 """
-            vo = (title, description, place, time, price, session['username'])
+            vo = (
+                title,
+                description,
+                place,
+                time,
+                int(price),
+                session['username'])
             cur.execute(qo, vo)
             db.commit()
+
             return redirect('/user/%s' % (user))
         flash(error)
     return render_template('new.html')
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
+
+
+@app.route('/user/<username>/new_profile', methods=['GET', 'POST'])
+@login_required
+def upload_file(username):
+    db = connect_db()
+    cur = db.cursor()
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            flash('No file selected')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            r.set('%s' %username, '/static/images/%s' %filename)
+            return redirect('/user/%s' % (username))
+    return render_template('upload.html',   username=username)
+
+@app.route('/user/<username>/remove_profile')
+@login_required
+def remove_profile(username):
+    r.set('%s' %username, '%s' %avatar(username, 80))
+    return redirect('/user/%s' % (username))
