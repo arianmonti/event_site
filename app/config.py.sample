@@ -12,9 +12,8 @@ MYSQL_DATABASE = 'database'
 ##
 
 ## UPLOAD_INFORMATION
-UPLOAD_FOLDER = 'UPLOAD_PLACE'
+UPLOAD_FOLDER = 'upload_folder'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 ##
-
 
 

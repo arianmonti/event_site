@@ -10,7 +10,3 @@
 - [ ] calender 
 - [ ] update
 - [ ] delete
-
-
-
-

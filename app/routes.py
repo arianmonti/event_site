@@ -58,9 +58,6 @@ def login_required(f):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        sex = request.form['sex']
         username = request.form['username']
         password = request.form['password']
         repeat_password = request.form['repeat_password']
@@ -110,7 +107,7 @@ def login():
         if user is None:
             error = 'Incorrect username.'
             flash(error)
-        elif not check_password_hash(user[5], password):
+        elif not check_password_hash(user[3], password):
             error = 'Incorrect password.'
             flash(error)
         if error is None:
@@ -245,3 +242,5 @@ def upload_file(username):
 def remove_profile(username):
     r.set('%s' % username, '%s' % avatar(username, 80))
     return redirect('/user/%s' % (username))
+
+

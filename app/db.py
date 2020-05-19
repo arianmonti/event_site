@@ -30,8 +30,6 @@ def init_db():
         CREATE TABLE user (
             id              INT,
             username        VARCHAR(128)        PRIMARY KEY,
-            first_name      VARCHAR(64)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            sur_name        VARCHAR(64)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
             email           VARCHAR(128),
             password        VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI
             );
