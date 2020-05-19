@@ -4,10 +4,17 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'
 
 
-
+## MYSQL_CONFIGS
 MYSQL_USERNAME = 'username'
 MYSQL_PASSWORD = 'password'
 MYSQL_HOST = 'host'
 MYSQL_DATABASE = 'database'
+##
+
+## UPLOAD_INFORMATION
+UPLOAD_FOLDER = 'UPLOAD_PLACE'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+##
+
 
 

@@ -33,9 +33,7 @@ def init_db():
             first_name      VARCHAR(64)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
             sur_name        VARCHAR(64)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
             email           VARCHAR(128),
-            password        VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            about           VARCHAR(400),
-            profile         JSON
+            password        VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI
             );
         """)
 

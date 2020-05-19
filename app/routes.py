@@ -24,6 +24,7 @@ def get_redis(username):
     result = r.get(username)
     return result
 
+
 def avatar(username, size):
     digest = md5(username.lower().encode('utf-8')).hexdigest()
     return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
@@ -87,7 +88,7 @@ def register():
             error = "passwords don't math."
         if error is None:
             cursor.execute(qo, vo)
-            r.set('%s' %username, '%s' %avatar(username, 80))
+            r.set('%s' % username, '%s' % avatar(username, 80))
             db.commit()
             return redirect('/login')
 
@@ -146,8 +147,9 @@ def current_avatar(size):
 
 
 def check_empty_profile(profile_uli):
-    result = os.path.exists('%s' %(profile_uli))
+    result = os.path.exists('%s' % (profile_uli))
     return result
+
 
 @app.route('/user/<username>')
 @login_required
@@ -233,12 +235,13 @@ def upload_file(username):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            r.set('%s' %username, '/static/images/%s' %filename)
+            r.set('%s' % username, '/static/images/%s' % filename)
             return redirect('/user/%s' % (username))
-    return render_template('upload.html',   username=username)
+    return render_template('upload.html', username=username)
+
 
 @app.route('/user/<username>/remove_profile')
 @login_required
 def remove_profile(username):
-    r.set('%s' %username, '%s' %avatar(username, 80))
+    r.set('%s' % username, '%s' % avatar(username, 80))
     return redirect('/user/%s' % (username))
