@@ -23,6 +23,7 @@ def close_db(e=None):
 
 
 def init_db():
+    '''Delete old same tables and create new tables'''
     db = connect_db()
     cursor = db.cursor()
     cursor.execute("""DROP TABLE IF EXISTS user;""")
@@ -57,6 +58,7 @@ def init_db():
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
+    '''Create CLI app'''
     """Clear the existing data and create new tables."""
     init_db()
     click.echo('Initialized the database.')

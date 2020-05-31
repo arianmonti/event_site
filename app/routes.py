@@ -17,7 +17,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
 import redis
-r = redis.Redis(host='localhost', port=6379, db=0)
+
+
+r = redis.Redis(host='localhost', port=6379, db=0)  # Connect to Redis
 
 
 def get_redis(username):
@@ -26,17 +28,10 @@ def get_redis(username):
 
 
 def avatar(username, size):
+    '''Get avatar from Gravatar'''
     digest = md5(username.lower().encode('utf-8')).hexdigest()
     return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
         digest, size)
-
-
-def cp():
-    db = connect_db()
-    cur = db.cursor()
-    cur.execute("""SELECT username FROM user""")
-    profile = cur.fetchall()
-    return profile
 
 
 @app.before_request
@@ -136,13 +131,6 @@ def logout():
     return redirect(url_for('index'))
 
 
-def current_avatar(size):
-    username = session['username']
-    digest = md5(username.lower().encode('utf-8')).hexdigest()
-    return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
-        digest, size)
-
-
 def check_empty_profile(profile_uli):
     result = os.path.exists('%s' % (profile_uli))
     return result
@@ -162,7 +150,7 @@ def user(username):
                     FROM event
             """)
     posts = cursor.fetchall()
-    user_avatar = avatar(username, 128)  # current_avatar(128)
+    user_avatar = avatar(username, 128)
     return render_template(
         'user.html',
         user=user,
@@ -219,8 +207,6 @@ def allowed_file(filename):
 @app.route('/user/<username>/new_profile', methods=['GET', 'POST'])
 @login_required
 def upload_file(username):
-    db = connect_db()
-    cur = db.cursor()
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
@@ -242,5 +228,3 @@ def upload_file(username):
 def remove_profile(username):
     r.set('%s' % username, '%s' % avatar(username, 80))
     return redirect('/user/%s' % (username))
-
-
