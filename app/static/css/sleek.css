@@ -3462,7 +3462,7 @@ input[type="button"].btn-block {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 750px;
+  width=400px;
   min-width: 0;
   word-wrap: break-word;
   background-color: #ffffff;
@@ -5923,7 +5923,7 @@ button.bg-dark:focus {
 
 .mb-4,
 .my-4 {
-  margin-bottom: 1.5rem !important; }
+  margin-bottom: 2.5rem !important; }
 
 .ml-4,
 .mx-4 {
@@ -5943,6 +5943,11 @@ button.bg-dark:focus {
 .mb-5,
 .my-5 {
   margin-bottom: 3rem !important; }
+
+.mb-2,
+.my-2 {
+  margin-bottom: 1rem !important; }
+  /* margin-bottom: 0.75rem !important; } */
 
 .ml-5,
 .mx-5 {
@@ -9950,7 +9955,7 @@ code {
   padding-bottom: 1.9rem;
   padding-left: 0.94rem;
   padding-right: 0.94rem;
-  width: 100%; }
+  width: 70%; }
   @media (min-width: 992px) {
     .content {
       padding: 1.9rem 2.5rem; } }

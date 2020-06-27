@@ -1,9 +1,8 @@
-import click
-import MySQLdb as mysql
+from app import config
 from flask import g
 from flask.cli import with_appcontext
-from app import config
-
+import MySQLdb as mysql
+import click
 
 def connect_db():
     db = mysql.connect(user=config.MYSQL_USERNAME,
