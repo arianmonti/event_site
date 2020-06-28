@@ -170,19 +170,20 @@ def new(username):
     if username != session['username']:
         return redirect('/login')
     if request.method == 'POST':
+        error = None
         user = session['username']
         title = request.form['title']
         description = request.form['description']
         place = request.form['place']
         time = request.form['time']
         price = request.form['price']
-        error = None
         data = [title, place, time, price]
         database = connect_db()
         cur = database.cursor()
-        for each_data in data:
-            if each_data is None:
-                error = 'Fill out all!!'
+        if len(price) > 7:
+            error="This event is too expensive"
+        if len(description) > 80:
+            error="Too long description"
         if error is None:
             first_query = """
                 INSERT INTO event

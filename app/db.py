@@ -28,24 +28,24 @@ def init_db():
     cursor.execute("""DROP TABLE IF EXISTS user;""")
     cursor.execute("""
         CREATE TABLE user (
-            id              INT,
-            username        VARCHAR(128)        PRIMARY KEY,
-            email           VARCHAR(128),
-            password        VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI
+            id                  INT,
+            username            VARCHAR(128)        PRIMARY KEY,
+            email               VARCHAR(128),
+            password            VARCHAR(128)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI
             );
         """)
 
     cursor.execute("""DROP TABLE IF EXISTS event;""")
     cursor.execute("""
         CREATE TABLE event (
-            id            INT,
-            title         VARCHAR(500)   CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            description   VARCHAR(1000)  CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            place         VARCHAR(2800)  CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
-            timestamp     DATE           DEFAULT CURRENT_DATE,
-            time DATE,
-            price INT,
-            username      VARCHAR(128)
+            id                  INT,
+            title               VARCHAR(80)        CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
+            description         VARCHAR(80)         CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
+            place               VARCHAR(80)       CHARACTER SET utf8mb4 COLLATE UTF8MB4_UNICODE_CI,
+            timestamp           DATE                DEFAULT CURRENT_DATE,
+            time                DATE,
+            price               INT,
+            username            VARCHAR(64)
             )
         ;""")
 
