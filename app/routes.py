@@ -21,11 +21,11 @@ from app import app
 from app import config
 from app.db import connect_db
 
-r = redis.Redis(host='localhost', port=6379, db=0)  # Connect to Redis
+R = redis.Redis(host='localhost', port=6379, db=0)  # Connect to Redis
 
 def get_redis(username):
     ''' Get redis username and return it. Unnecessary '''
-    result = r.get(username)
+    result = R.get(username)
     return result
 
 
@@ -84,7 +84,7 @@ def register():
             error = "passwords don't math."
         if error is None:
             cursor.execute(first_query, first_value)
-            r.set('%s' % username, '%s' % avatar(username, 80))
+            R.set('%s' % username, '%s' % avatar(username, 80))
             database.commit()
             return redirect('/login')
 
@@ -170,20 +170,19 @@ def new(username):
     if username != session['username']:
         return redirect('/login')
     if request.method == 'POST':
-        error = None
         user = session['username']
         title = request.form['title']
         description = request.form['description']
         place = request.form['place']
         time = request.form['time']
         price = request.form['price']
-        data = [title, place, time, price]
         database = connect_db()
         cur = database.cursor()
+        error = None
         if len(price) > 7:
-            error="This event is too expensive"
+            error = "This event is too expensive"
         if len(description) > 80:
-            error="Too long description"
+            error = "Too long description"
         if error is None:
             first_query = """
                 INSERT INTO event
@@ -228,7 +227,7 @@ def upload_file(username):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            r.set('%s' % username, '/static/images/%s' % filename)
+            R.set('%s' % username, '/static/images/%s' % filename)
             return redirect('/user/%s' % (username))
     return render_template('upload.html', username=username)
 
@@ -239,5 +238,5 @@ def remove_profile(username):
     ''' Removes profile image and choose Gravatar for Profile '''
     if username != session['username']:
         return redirect('/login')
-    r.set('%s' % username, '%s' % avatar(username, 80))
+    R.set('%s' % username, '%s' % avatar(username, 80))
     return redirect('/user/%s' % (username))
