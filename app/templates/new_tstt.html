@@ -7,7 +7,7 @@
   <meta name="description" content="Sleek Dashboard - Free Bootstrap 4 Admin Dashboard Template and UI Kit. It is very powerful bootstrap admin dashboard, which allows you to build products like admin panels, content management systems and CRMs etc.">
 
 
-  <title>Sleek - Admin Dashboard Template</title>
+  <title>Events |  Freevent</title>
 
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
@@ -57,7 +57,7 @@
 	</script>
   <script src="assets/plugins/nprogress/nprogress.js"></script>
 </head>
-
+	
 
 <body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
   
@@ -71,11 +71,23 @@
   
 
   <div class="wrapper">
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <img src="{{ get_redis(session['username']).decode('utf-8') }}" width="126" height="100">
+  <a><figcaption>  {{ session['username']  }}  </figcaption></a>
 
+  <hr>
+  <a href="/user/{{ session['username'] }}/new_profile">Change Profile Image </a>
+  <a href="/logout">Log Out</a>
+
+</div>
+  <button class="openbtn" onclick="openNav()">&#9776;</button>
                 <!-- Header -->
       <div class="content-wrapper">
-        <div class="content">						 
+        <div class="content">
+        	{% if session['username'] %} 
 		<center><h4><a href="/user/{{ session['username'] }}/new_event">New</a></h4><br></center>
+		{% endif %}
                   <!-- Top Statistics -->
  
                   <!-- Top Products -->

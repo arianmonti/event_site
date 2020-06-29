@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% if session['username'] %}
+<form method="post">
+	<label for="title">title</label>
+	<input name="title" id="title" value="{{ request.form['title'] }}" required><br>
+	<label for="description">description</label>
+	<textarea name="description" id="description" required>{{ request.form['description'] }}</textarea><br>
+	<label for="place">place</label>
+	<textarea name="place" id="place" required>{{ request.form['place'] }}</textarea><br>
+	<label for="time">time</label>
+	<textarea name="time" id="time"  required>{{ request.form['time'] }}</textarea><br>
+	<label for="price">price</label>
+	<textarea name="price" id="price" required>{{ request.form['price'] }}</textarea><br>
+	<input type="submit" value="Post">
+</form>
+</center>
+{% endif %}
+{% endblock %}
+

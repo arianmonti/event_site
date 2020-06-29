@@ -1,33 +1,182 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sleek Dashboard - Free Bootstrap 4 Admin Dashboard Template and UI Kit. It is very powerful bootstrap admin dashboard, which allows you to build products like admin panels, content management systems and CRMs etc.">
 
-{% block header %}
-<h1>{% block title %}Posts{% endblock %}</h1>
-{% if session['username'] %}
-<small><a class="action" href="/user/{{ session['username'] }}/new_event">New</a></small>
-{% endif %}
 
-{% endblock %}
-{% block content %}
-    <img src="{{ get_redis(session['username']).decode('utf-8') }}"height="100" width="100">
-    <a href="/user/{{ session['username'] }}/new_profile">EDIT PROFILE IMAGE<a>
-	<hr>
-    {% for post in posts %}
-        <table>
-            <tr valigon="top">
-                <td><img src="{{ get_redis(post[6]).decode('utf-8') }}" height="100" width="100"></td>
-                <td>by {{ post[6] }} posted on {{ post[3] }}</td>
-            </tr>
-        </table>
-        <hr  size="1">
-        <td>title: {{ post[0] }}</td><br>
-        <td>description: {{ post[1] }} <br></td>
-        <td>place: {{ post[2] }}<br></td>
-        <td>when: {{ post[4] }}<br></td>
-        <td>price: {{ post[5] }}</td>
-    </header>
-    </article>
-    {% if not loop.last %}
-    <hr>
-    {% endif %}
-    {% endfor %}
-{% endblock %}
+  <title>Events |  Freevent</title>
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
+  <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet" />
+
+
+  <!-- PLUGINS CSS STYLE -->
+  <link href="../static/plugins/nprogress/nprogress.css" rel="stylesheet" />
+
+  
+  
+  <!-- No Extra plugin used -->
+  
+  
+  
+  <link href="../static/lugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+  
+  
+  
+  <link href="../static/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+  
+  
+  
+  <link href="../static/plugins/toastr/toastr.min.css" rel="stylesheet" />
+  
+  
+
+  <!-- SLEEK CSS -->
+  <link id="sleek-css" rel="stylesheet" href="../static/css/sleek.css" />
+
+  <!-- FAVICON -->
+  <link href="../static/img/favicon.png" rel="shortcut icon" />
+
+  
+	<script>
+				/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+		function openNav() {
+			  document.getElementById("mySidebar").style.width = "250px";
+			  document.getElementById("main").style.marginLeft = "250px";
+		}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+	function closeNav() {
+		  document.getElementById("mySidebar").style.width = "0";
+		  document.getElementById("main").style.marginLeft = "0";
+	}
+	</script>
+  <script src="assets/plugins/nprogress/nprogress.js"></script>
+</head>
+	
+
+<body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
+  
+  <script>
+    NProgress.configure({ showSpinner: false });
+    NProgress.start();
+  </script>
+
+  
+  <div id="toaster"></div>
+  
+
+  <div class="wrapper">
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <img src="{{ get_redis(session['username']).decode('utf-8') }}" width="126" height="100">
+  <a><figcaption>  {{ session['username']  }}  </figcaption></a>
+
+  <hr>
+  <a href="/user/{{ session['username'] }}/new_profile">Change Profile Image </a>
+  <a href="/logout">Log Out</a>
+
+</div>
+  <button class="openbtn" onclick="openNav()">&#9776;</button>
+                <!-- Header -->
+      <div class="content-wrapper">
+        <div class="content">
+        	{% if session['username'] %} 
+		<center><h4><a href="/user/{{ session['username'] }}/new_event">New</a></h4><br></center>
+		{% endif %}
+                  <!-- Top Statistics -->
+ 
+                  <!-- Top Products -->
+		  {% for post in posts %}
+                  <div class="card card-default" data-scroll-height="580">
+                    <div class="justify-content-between mb-4">
+                    </div>
+                    <div class="card-body py-0">
+                      <div class="media d-flex mb-5">
+                        <div class="media-image align-self-center mr-3 rounded">
+				<a href="#"><img src="{{ get_redis(post[6]).decode('utf-8') }}" width="100" height="100" alt="customer image"></a>
+                        </div>
+                        <div class="media-body align-self-center">
+				<a href="#"><h6 class="mb-3 text-dark font-weight-medium">{{ post[0] }}</h6></a>
+				<p class="float-md-right"><span class="text-dark mr-2">${{ post[5] }}</span></p>
+				<p class="d-none d-md-block">{{ post[1] }}
+				</p>
+                          <p class="mb-0"><br>
+			  <span class=""><i>By <b>{{ post[6] }}</b> posted on {{ post[3] }} | Time : {{ post[4] }}</i><span>
+                          </p>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+		  {% endfor %}
+
+
+</div>
+						</div>
+</div>
+
+        
+
+
+
+                <footer class="footer mt-auto">
+            <script>
+                var d = new Date();
+                var year = d.getFullYear();
+                document.getElementById("copy-year").innerHTML = year;
+            </script>
+          </footer>
+
+    </div>
+  </div>
+
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+<script src="assets/plugins/slimscrollbar/jquery.slimscroll.min.js"></script>
+<script src="assets/plugins/jekyll-search.min.js"></script>
+
+
+
+<script src="assets/plugins/charts/Chart.min.js"></script>
+  
+
+
+<script src="assets/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
+<script src="assets/plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
+  
+
+
+<script src="assets/plugins/daterangepicker/moment.min.js"></script>
+<script src="assets/plugins/daterangepicker/daterangepicker.js"></script>
+<script>
+  jQuery(document).ready(function() {
+    jQuery('input[name="dateRange"]').daterangepicker({
+    autoUpdateInput: false,
+    singleDatePicker: true,
+    locale: {
+      cancelLabel: 'Clear'
+    }
+  });
+    jQuery('input[name="dateRange"]').on('apply.daterangepicker', function (ev, picker) {
+      jQuery(this).val(picker.startDate.format('MM/DD/YYYY'));
+    });
+    jQuery('input[name="dateRange"]').on('cancel.daterangepicker', function (ev, picker) {
+      jQuery(this).val('');
+    });
+  });
+</script>
+  
+
+
+<script src="assets/plugins/toastr/toastr.min.js"></script>
+
+
+
+<script src="assets/js/sleek.bundle.js"></script>
+</body>
+
+</html>
+                </ul>
