@@ -7,7 +7,7 @@
   <meta name="description" content="Sleek Dashboard - Free Bootstrap 4 Admin Dashboard Template and UI Kit. It is very powerful bootstrap admin dashboard, which allows you to build products like admin panels, content management systems and CRMs etc.">
 
 
-  <title>Events |  Freevent</title>
+  <title>Events | Freevent</title>
 
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500|Poppins:400,500,600,700|Roboto:400,500" rel="stylesheet" />
@@ -15,7 +15,7 @@
 
 
   <!-- PLUGINS CSS STYLE -->
-  <link href="../static/plugins/nprogress/nprogress.css" rel="stylesheet" />
+  <link href="/static/plugins/nprogress/nprogress.css" rel="stylesheet" />
 
   
   
@@ -23,23 +23,23 @@
   
   
   
-  <link href="../static/lugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+  <link href="/static/lugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
   
   
   
-  <link href="../static/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+  <link href="/static/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
   
   
   
-  <link href="../static/plugins/toastr/toastr.min.css" rel="stylesheet" />
+  <link href="/static/plugins/toastr/toastr.min.css" rel="stylesheet" />
   
   
 
   <!-- SLEEK CSS -->
-  <link id="sleek-css" rel="stylesheet" href="../static/css/sleek.css" />
+  <link id="sleek-css" rel="stylesheet" href="/static/css/sleek_new.css" />
 
   <!-- FAVICON -->
-  <link href="../static/img/favicon.png" rel="shortcut icon" />
+  <link href="/static/img/favicon.png" rel="shortcut icon" />
 
   
 	<script>
@@ -60,7 +60,7 @@
 	
 
 <body class="header-fixed sidebar-fixed sidebar-dark header-light" id="body">
-  
+
   <script>
     NProgress.configure({ showSpinner: false });
     NProgress.start();
@@ -77,42 +77,42 @@
   <a><figcaption>  {{ session['username']  }}  </figcaption></a>
 
   <hr>
-  <a href="/user/{{ session['username'] }}/new_profile">Change Profile Image </a>
+  <a href="/user/{{ session['username'] }}">Home</a>
   <a href="/logout">Log Out</a>
 
 </div>
   <button class="openbtn" onclick="openNav()">&#9776;</button>
                 <!-- Header -->
       <div class="content-wrapper">
-        <div class="content">
-        	{% if session['username'] %} 
-		<center><h4><a href="/user/{{ session['username'] }}/new_event">New</a></h4><br></center>
-		{% endif %}
+      <div class="content">
                   <!-- Top Statistics -->
  
                   <!-- Top Products -->
-		  {% for post in posts %}
                   <div class="card card-default" data-scroll-height="580">
                     <div class="justify-content-between mb-4">
                     </div>
                     <div class="card-body py-0">
                       <div class="media d-flex mb-5">
                         <div class="media-image align-self-center mr-3 rounded">
-				<a href="#"><img src="{{ get_redis(post[6]).decode('utf-8') }}" width="100" height="100" alt="customer image"></a>
+                        
                         </div>
                         <div class="media-body align-self-center">
-				<a href="#"><h6 class="mb-3 text-dark font-weight-medium">{{ post[0] }}</h6></a>
-				<p class="float-md-right"><span class="text-dark mr-2">${{ post[5] }}</span></p>
-				<p class="d-none d-md-block">{{ post[1] }}
-				</p>
+			<center>
+			<h4><div class="text-dark mb-5">Edit Profile Image</div></h4>
+			</center>
+			{% with messages=get_flashed_messages() %}
+			 {% for message in messages %}
+			 <center><h6><div style="color:red;" class="mb-2">{{  message }}</div></h6></center>
+			 {% endfor %}
+			 {% endwith %} 
                           <p class="mb-0"><br>
-			  <span class=""><i>By <b>{{ post[6] }}</b> posted on {{ post[3] }} | Time : {{ post[4] }}</i><span>
+			  <span class=""><i></i><span>
                           </p>
                         </div>
                       </div>
                       </div>
                   </div>
-		  {% endfor %}
+	
 
 
 </div>

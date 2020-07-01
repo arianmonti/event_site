@@ -1,5 +1,5 @@
-from app import config
 from flask import g
+from app import config
 from flask.cli import with_appcontext
 import MySQLdb as mysql
 import click

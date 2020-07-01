@@ -48,7 +48,7 @@
 			<h4 class="text-dark mb-5"><center>Sign Up</center></h4>
 		    	{% with messages=get_flashed_messages() %}
 				{% for message in messages %}
-					<center><h6><div style="color:red;">{{  message }}</div></h6></center>
+					<center><h6><div style="color:red;" class="mb-2" >{{  message }}</div></h6></center>
 					<!-- class="mb-2" -->
 				{% endfor %}
 		    	{% endwith %}

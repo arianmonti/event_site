@@ -41,7 +41,7 @@
   box-sizing: border-box; }
 
 html {
-  font-family: sans-serif;
+  font-family: Vazir;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -243,9 +243,27 @@ input[type="datetime-local"],
 input[type="month"] {
   -webkit-appearance: listbox; }
 
+br {
+  display: block;
+  margin-bottom: 10px;
+  font-size:2px;
+  line-height: 5px;
+}
+
+
+
+input,
 textarea {
+  width: auto;
+  height: auto;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  resize: none;
   overflow: auto;
-  resize: vertical; }
+  resize: none; }
 
 fieldset {
   min-width: 0;
@@ -3456,9 +3474,13 @@ input[type="button"].btn-block {
       color: #ffffff; }
 
 .card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
   position: relative;
   display: flex;
   flex-direction: column;
+  width=400px;
   min-width: 0;
   word-wrap: break-word;
   background-color: #ffffff;
@@ -5881,7 +5903,7 @@ button.bg-dark:focus {
 
 .mb-2,
 .my-2 {
-  margin-bottom: 1rem !important; }
+  margin-bottom: 0.5rem !important; }
 
 .ml-2,
 .mx-2 {
@@ -5919,7 +5941,7 @@ button.bg-dark:focus {
 
 .mb-4,
 .my-4 {
-  margin-bottom: 1.5rem !important; }
+  margin-bottom: 2.5rem !important; }
 
 .ml-4,
 .mx-4 {
@@ -5939,6 +5961,11 @@ button.bg-dark:focus {
 .mb-5,
 .my-5 {
   margin-bottom: 3rem !important; }
+
+.mb-2,
+.my-2 {
+  margin-bottom: 1rem !important; }
+  /* margin-bottom: 0.75rem !important; } */
 
 .ml-5,
 .mx-5 {
@@ -9946,7 +9973,7 @@ code {
   padding-bottom: 1.9rem;
   padding-left: 0.94rem;
   padding-right: 0.94rem;
-  width: 100%; }
+  width: 70%; }
   @media (min-width: 992px) {
     .content {
       padding: 1.9rem 2.5rem; } }
@@ -10670,6 +10697,7 @@ div.copied {
       position: relative;
       z-index: 1; } }
 
+/* 
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -10700,7 +10728,8 @@ div.copied {
         text-transform: uppercase;
         font-weight: 500;
         white-space: nowrap; }
-
+*/
+/*
 .sidebar .sidebar-inner > li.active > a {
   position: relative;
   z-index: 10;
@@ -10731,8 +10760,82 @@ div.copied {
 
 .sidebar .nav > li.active > a:before {
   opacity: 1; }
+ */
+ 
+ .sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 26;
+  left: 0;
+  /* background-color: #4c84ff; 
+  background-color: #1a61f0; */
+    background-color: #286efa;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+  border-radius: 5px;
+}
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 17.5px;
+  /* color: #242322; */
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+}
+.sidebar img {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #000000;
+  display: block;
+  transition: 0.3s;
+}
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
 
-/* App brand */
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #286efa;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 2px;
+  border: none;
+}
+.openbtn:hover {
+  background-color: #444;
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+/*                               End                                  */
+
 .app-brand {
   position: relative;
   display: block;

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %} Upload new Profile {% endblock %}
+<h1>{% block header %}Upload new Profile{% endblock %}</h1>
+{% block content %}
+<form method=post enctype=multipart/form-data>
+<input type=file name=file>
+<input type=submit value=Upload>
+</form>
+</br><a  href="/user/{{ username }}/remove_profile">delete profile</a>
+{% endblock %}

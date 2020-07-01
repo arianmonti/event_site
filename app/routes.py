@@ -21,6 +21,7 @@ from app import app
 from app import config
 from app.db import connect_db
 
+
 R = redis.Redis(host='localhost', port=6379, db=0)  # Connect to Redis
 
 def get_redis(username):
@@ -201,7 +202,7 @@ def new(username):
 
             return redirect('/user/%s' % (user))
         flash(error)
-    return render_template('new.html', username=username)
+    return render_template('new.html', username=username, get_redis=get_redis)
 
 
 def allowed_file(filename):
@@ -229,7 +230,7 @@ def upload_file(username):
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             R.set('%s' % username, '/static/images/%s' % filename)
             return redirect('/user/%s' % (username))
-    return render_template('upload.html', username=username)
+    return render_template('upload.html', username=username, get_redis=get_redis)
 
 
 @app.route('/user/<username>/remove_profile')
