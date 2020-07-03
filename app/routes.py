@@ -182,8 +182,8 @@ def new(username):
         error = None
         if len(price) > 7:
             error = "This event is too expensive"
-        if len(description) > 80:
-            error = "Too long description"
+        if len(description) > 80 or len(place) > 80:
+            error = "Too long place or description"
         if error is None:
             first_query = """
                 INSERT INTO event
@@ -228,7 +228,7 @@ def upload_file(username):
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            R.set('%s' % username, '/static/images/%s' % filename)
+            R.set('%s' % username, '/static/profile_images/%s' % filename)
             return redirect('/user/%s' % (username))
     return render_template('upload.html', username=username, get_redis=get_redis)
 

@@ -1,0 +1,57 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} Freevent</title>
+<style>
+.image-cropper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+img {
+    display: inline;
+    margin: 0 auto;
+    height: 100;
+    width:  100;
+}
+.vl {
+	  border-left: 6px solid green;
+	    height: 500px;
+}
+</style>
+<div>
+	Freevent:
+	{% if session['username'] %}
+	<a href="/index">Home</a>
+	<a href="/logout">Log out</a>
+	{% else %}
+	<a href="/login">Sign in</a>
+	<a href="/register">Sign up</a>
+	{% endif %}
+</div>
+<hr>
+<nav>
+    <h1>Freevent</h1>
+    <!--
+    <ul>
+        {% if session['username'] %}
+            <li><a href="{{ url_for('logout') }}">Log Out</a>
+        {% else %}
+            <li><a href="{{ url_for('register') }}">Sign up</a>
+            <li><a href="{{ url_for('login') }}">Sign in</a>
+        {% endif %}
+    </ul>
+    -->
+</nav>
+<section class="content">
+        <h1>
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+        </h1>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>

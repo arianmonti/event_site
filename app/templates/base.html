@@ -1,57 +1,188 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} Freevent</title>
-<style>
-.image-cropper {
-    width: 50px;
-    height: 50px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-}
+<html lang="en">
+  <head>
+    <title>Services Free Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/fonts/icomoon/style.css">
 
-img {
-    display: inline;
-    margin: 0 auto;
-    height: 100;
-    width:  100;
-}
-.vl {
-	  border-left: 6px solid green;
-	    height: 500px;
-}
-</style>
-<div>
-	Freevent:
-	{% if session['username'] %}
-	<a href="/index">Home</a>
-	<a href="/logout">Log out</a>
-	{% else %}
-	<a href="/login">Sign in</a>
-	<a href="/register">Sign up</a>
-	{% endif %}
-</div>
-<hr>
-<nav>
-    <h1>Freevent</h1>
-    <!--
-    <ul>
-        {% if session['username'] %}
-            <li><a href="{{ url_for('logout') }}">Log Out</a>
-        {% else %}
-            <li><a href="{{ url_for('register') }}">Sign up</a>
-            <li><a href="{{ url_for('login') }}">Sign in</a>
-        {% endif %}
-    </ul>
-    -->
-</nav>
-<section class="content">
-        <h1>
-    <header>
-        {% block header %}{% endblock %}
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/jquery-ui.css">
+    <link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="../static/css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="../static/css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="../static/css/fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="../static/css/aos.css">
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+   
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container">
+        <div class="row align-items-center justify-content-center">
+
+          <div class="col-4">
+            <h1 class="m-0 site-logo"><a href="index.html">Freevent</a></h1>
+          </div>
+
+          <div class="col-8">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+		<!--
+                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#services-section" class="nav-link">Services</a></li>
+                <li><a href="#projects-section" class="nav-link">Projects</a></li>
+		-->
+                <li><a href="#about-section" class="nav-link">About</a></li>
+                <li><a href="/login" class="nav-link">Sign In</a></li>
+                <li><a href="/register" class="nav-link">Sign Up</a></li>
+              </ul>
+            </nav>
+
+
+            <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle float-right"><span class="icon-menu h3"></span></a>
+
+          </div>
+
+        
+        </div>
+      </div>
+      
     </header>
-        </h1>
-    {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-    {% endfor %}
-    {% block content %}{% endblock %}
-</section>
+
+
+    <div class="site-blocks-cover overlay bg-light" style="background-image: url('../static/images/hero_bg_1.jpg'); " id="home-section">
+
+
+      <div class="container">
+        <div class="row justify-content-center">
+
+          <div class="col-12 text-center align-self-center text-intro">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <h1 class="text-white" data-aos="fade-up" data-aos-delay="">Get started with Freevent</h1>
+                <p class="lead text-white" data-aos="fade-up" data-aos-delay="100">Post and see parties, confrences and other events</p>
+                <p data-aos="fade-up" data-aos-delay="200"><a href="/register" class="btn smoothscroll btn-primary">Get started</a></p>
+
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      </div>
+
+    </div>  
+
+    
+
+    <div class="site-section" id="about-section">
+      <div class="container">
+        <div class="row ">
+          <div class="col-12 mb-4 position-relative">
+            <h2 class="section-title">About Us</h2>
+          </div>
+          <div class="col-lg-4">
+		  <p>With Freevent you can share and see your big and small parties, confrences or other event. For example: <br><i>Hi guys, I have party in my home this weekend and we want to ..</i></p>
+		  <p>Freevent is very small project but you can Create User, Login, Post New Event and Change Your Profile Image.</p>
+          </div>
+          <div class="col-lg-4">
+		  <p>Freevent is Open Source and free and published under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License</a> and  you can see the source code <a href="https://github.com/arianmonti/event_site.git">Here</a>.</p><br><br>
+
+            <p>So you can Use it, Copy it, Change it and Publish your copy under GPL. Enjoy!</p>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+
+ <!--
+    <footer class="site-section bg-light footer">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-5 mx-auto">
+            <div class="row">
+              <div class="col-lg-4">
+                <h3 class="footer-title">Templates</h3>
+                <ul class="list-unstyled">
+                  <li><a href="#">Illustration</a></li>
+                  <li><a href="#">Video Editing</a></li>
+                  <li><a href="#">Copywriting</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h3 class="footer-title">Follow Me</h3>
+            <a href="#" class="social-circle m-2"><span class="icon-twitter"></span></a>
+            <a href="#" class="social-circle m-2"><span class="icon-facebook"></span></a>
+            <a href="#" class="social-circle m-2"><span class="icon-instagram"></span></a>
+            <a href="#" class="social-circle m-2"><span class="icon-dribbble"></span></a>
+            <a href="#" class="social-circle m-2"><span class="icon-linkedin"></span></a>
+            <a href="#" class="social-circle m-2"><span class="icon-github"></span></a>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12 text-center">
+            <p>
+                Copyright &copy;
+                <script>
+                  document.write(new Date().getFullYear());
+                </script> All rights reserved | This template is made with <i class="icon-heart"
+                  aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              </p>  
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div> 
+   -->
+  <script src="../static/js/jquery-3.3.1.min.js"></script>
+  <script src="../static/js/jquery-ui.js"></script>
+  <script src="../static/js/popper.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/owl.carousel.min.js"></script>
+  <script src="../static/js/jquery.easing.1.3.js"></script>
+  <script src="../static/js/aos.js"></script>
+  <script src="../static/js/jquery.fancybox.min.js"></script>
+  <script src="../static/js/jquery.sticky.js"></script>
+  <script src="../static/js/isotope.pkgd.min.js"></script>
+
+  
+  <script src="../static/js/main.js"></script>
+  </body>
+</html>
