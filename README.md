@@ -20,10 +20,9 @@ Dependencies
 ### GNU-Linux
 - #### Python
 
-
      - You can install Python from your package manager :
      
-      ```bash
+      ``` bash
       sudo apt install python  ## Ubuntu, Debian, ...
       sudo dnf install python  ## Fedora
       sudo yum install python  ## RHEL, CentOS, ...
