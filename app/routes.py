@@ -7,10 +7,8 @@ import os
 import redis
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import current_user
 from flask import (
     flash,
-    g,
     redirect,
     render_template,
     request,
@@ -35,12 +33,6 @@ def avatar(username, size):
     digest = md5(username.lower().encode('utf-8')).hexdigest()
     return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
         digest, size)
-
-@app.before_request
-def before_request():
-    ''' Defines some data before requests '''
-    g.user = current_user
-
 
 def login_required(function):
     ''' Define login required function. I didn't use Flask_Login '''
