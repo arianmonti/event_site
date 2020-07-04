@@ -20,7 +20,7 @@ Dependencies
 ### GNU-Linux
 - #### Python
 
-    - You can install Python from your package manager :
+    You can install Python from your package manager :
     
     ```bash
     sudo apt install python  ## Ubuntu, Debian, ...
@@ -29,7 +29,7 @@ Dependencies
     sudo pacman -S python    ## Arch, Manjaro, ...
     ```
       
-    - Install packages from pip. Requirements listed in `requirements.txt`. But before install requirements, create and activate virtualenv.
+    Install packages from pip. Requirements listed in `requirements.txt`. But before install requirements, create and activate virtualenv.
     
     ```bash
     pip install virtualenv
