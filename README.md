@@ -21,7 +21,8 @@ Dependencies
 - #### Python
 
 
-     - You can install Python from your package manager : 
+     - You can install Python from your package manager :
+     
       ```bash
       sudo apt install python  ## Ubuntu, Debian, ...
       sudo dnf install python  ## Fedora
