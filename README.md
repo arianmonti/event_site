@@ -68,6 +68,10 @@ there is a `config.py.sample` in `app` directory. You should copy this file to `
 ```bash
 cp app/config.py.sample app/config.py
 ``` 
+If you want to save user profile images in app directory, make a directory called `profile_images` in static directory by running:
+```bash
+mkdir app/static/profile_images
+```
 Edit `config.py` and write your information there.
 Then create a user and database named that database you said in `config.py`
 ```SQL
